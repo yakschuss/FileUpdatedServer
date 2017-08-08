@@ -6,8 +6,8 @@ import (
 )
 
 type ModificationInfo struct {
-  modified bool
-  timeModified string
+  Modified bool
+  TimeModified string
 }
 
 type FileChecker struct {
@@ -22,13 +22,13 @@ func (c FileChecker) IsModified(fileName string) ModificationInfo {
 
   if err != nil {
     return ModificationInfo{
-      false,
-      "not modified",
+      Modified: false,
+      TimeModified: "not modified",
     }
   }
 
   return ModificationInfo{
-    info.ModTime().After(twentyFourHoursAgo),
-    info.ModTime().Format("2006-01-02T15:04:05.999999-07:00"),
+    Modified: info.ModTime().After(twentyFourHoursAgo),
+    TimeModified: info.ModTime().Format("2006-01-02T15:04:05.999999-07:00"),
   }
 }
