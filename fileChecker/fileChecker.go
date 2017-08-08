@@ -10,15 +10,15 @@ type ModificationInfo struct {
   timeModified string
 }
 
-func main() {
+type FileChecker struct {
+  Checker afero.Fs
 }
 
-func IsModified(fileName string, checker afero.Fs) ModificationInfo {
-
+func (c FileChecker) IsModified(fileName string) ModificationInfo {
   diff := 24 * time.Hour
   twentyFourHoursAgo := time.Now().Add(-diff)
 
-  info, err := checker.Stat(fileName)
+  info, err := c.Checker.Stat(fileName)
 
   if err != nil {
     return ModificationInfo{
